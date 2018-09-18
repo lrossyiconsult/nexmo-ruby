@@ -5,19 +5,19 @@ module Nexmo
     alias_method :http_request, :request
 
     def request(params)
-      http_request('/verify/json', params: params, type: Post)
+      post('/verify/json', params)
     end
 
     def check(params)
-      http_request('/verify/check/json', params: params, type: Post)
+      post('/verify/check/json', params)
     end
 
     def search(params)
-      http_request('/verify/search/json', params: params)
+      VerifyResponse.new(http_request('/verify/search/json', params: params))
     end
 
     def control(params)
-      http_request('/verify/control/json', params: params, type: Post)
+      post('/verify/control/json', params)
     end
 
     def cancel(id)
@@ -26,6 +26,12 @@ module Nexmo
 
     def trigger_next_event(id)
       control(request_id: id, cmd: 'trigger_next_event')
+    end
+
+    private
+
+    def post(path, params)
+      VerifyResponse.new(http_request(path, params: params, type: Post))
     end
   end
 end
