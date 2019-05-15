@@ -3,7 +3,7 @@ require 'net/http'
 require 'json'
 
 module Nexmo
-  class Namespace # :nodoc:
+  class Namespace
     def initialize(client)
       @client = client
 
@@ -98,4 +98,6 @@ module Nexmo
       end
     end
   end
+
+  private_constant :Namespace
 end
