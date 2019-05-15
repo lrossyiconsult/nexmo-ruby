@@ -2,6 +2,8 @@
 
 module Nexmo
   class Alerts < Namespace
+    include Keys
+
     self.host = 'rest.nexmo.com'
 
     def list
@@ -15,7 +17,7 @@ module Nexmo
     alias_method :resubscribe, :remove
 
     def send(params)
-      request('/sc/us/alert/json', params: params, type: Post)
+      request('/sc/us/alert/json', params: hyphenate(params), type: Post)
     end
   end
 end
